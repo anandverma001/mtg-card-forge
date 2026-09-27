@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const ai = new GoogleGenAI({
-  apiKey: process.env.GEMINI_API_KEY,
+  apiKey: process.env.GEMINI_API_KEY || '',
 });
 
 const CARD_SCHEMA = {
@@ -36,7 +36,7 @@ const CARD_SCHEMA = {
 
 // Helper: Tries model with retries, then cascades to fallback models if busy
 async function generateCardContentWithFallback(prompt: string): Promise<string> {
-  const models = ['gemini-3.8-flash', 'gemini-3.8-pro', 'gemini-2.0-flash'];
+const models = ['gemini-3.5-flash-lite', 'gemini-3.8-flash', 'gemini-3.5-flash'];
 
   for (const model of models) {
     for (let attempt = 1; attempt <= 2; attempt++) {
